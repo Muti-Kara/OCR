@@ -6,13 +6,16 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
+import image.GrayBuffer;
+
 /**
 * ImageReader
 */
 public class ImageReader {
 	
-	public static BufferedImage read(String fileName) throws IOException {
-		return ImageIO.read(new File(fileName));
+	public static GrayBuffer read(String fileName) throws IOException {
+		BufferedImage image = ImageIO.read(new File(fileName));
+		return new GrayBuffer(image);
 	}
 	
 }

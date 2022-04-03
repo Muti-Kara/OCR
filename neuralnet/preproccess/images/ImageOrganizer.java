@@ -45,12 +45,13 @@ public class ImageOrganizer {
 		for(int i = 0; i < fileNames.size(); i++){
 			String file = fileNames.get(i).substring(0, fileNames.get(i).length() - 2);
 			char character = fileNames.get(i).charAt(fileNames.get(i).length() - 1);
-			ImageBuffer img = new ImageBuffer(folderName + character + "/" + file);
-			img.resize();
-			img.turnBlackAndWhite();
-			img.maximizeContrast();
-			img.write(NetworkOrganizer.readDir + "/images/check/" + character + "/" + file);
-			inputs[i] = img.getMatrix();
+			// TODO read image and convert it to a matrix
+			// GrayBuffer img = new GrayBuffer(folderName + character + "/" + file);
+			// img.resize();
+			// img.turnBlackAndWhite();
+			// img.maximizeContrast();
+			// img.write(NetworkOrganizer.readDir + "/images/check/" + character + "/" + file);
+			// inputs[i] = img.getMatrix();
 			answers.set(i, character - 'A', 1);
 		}
 		return fileNames.size();
