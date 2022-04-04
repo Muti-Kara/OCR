@@ -1,42 +1,50 @@
 package image;
 
+import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
+import java.awt.image.RescaleOp;
 
 /**
 * My grayscale image data structure for image manipulation
 * @author Muti Kara
 */
 public class GrayBuffer {
+	final int CONTRAST = 40;
+	
 	BufferedImage img;
 	int width;
 	int height;
+	
+	String text;
+	double probability;
+	double background = 0;
 	
 	/**
 	* Creates an GrayBuffer object from given BufferedImage
 	* @param img
 	*/
 	public GrayBuffer(BufferedImage img) {
+		RescaleOp adjust = new RescaleOp(1.3f, 15, null);
+		adjust.filter(img, img);
+		
 		this.img = img;
 		this.width = img.getWidth();
 		this.height = img.getHeight();
+		
 		for(int w = 0; w < width; w++){
 			for(int h = 0; h < height; h++){
 				int p = img.getRGB(w, h);
-				p = (p >> 16 & 0xff + p >> 8 & 0xff + p & 0xff)/3;
+				p = ((p >> 16 & 0xff) + (p >> 8 & 0xff) + (p & 0xff))/3;
+				p = (p/CONTRAST) * CONTRAST;
 				set(w, h, p);
 			}
 		}
-	}
-	
-	/**
-	* Creates an empty GrayBuffer
-	* @param width
-	* @param height
-	*/
-	public GrayBuffer(int width, int height) {
-		this.width = width;
-		this.height = height;
-		this.img = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
+		for(int w = 0; w < width; w++){
+			for(int h = 0; h < height; h++){
+				background += get(w, h);
+			}
+		}
+		background /= width * height;
 	}
 	
 	/**
@@ -48,13 +56,34 @@ public class GrayBuffer {
 	* @return the rectangular area as a GrayBuffer
 	*/
 	public GrayBuffer cut(int areaX, int areaY, int areaWidth, int areaHeight) {
-		GrayBuffer cutted = new GrayBuffer(areaWidth, areaHeight);
-		for(int w = areaX; w < areaX + areaWidth; w++){
-			for(int h = areaY; h < areaY + areaHeight; h++){
-				cutted.set(w - areaX, h - areaY, this.get(w, h));
-			}
-		}
-		return cutted;
+		BufferedImage cutted = img.getSubimage(areaX, areaY, areaWidth, areaHeight);
+		return new GrayBuffer(cutted);
+	}
+	
+	/**
+	* 
+	* @param newWidth
+	* @param newHeight
+	* @return resized GrayBuffer 
+	*/
+	public GrayBuffer resize(int newWidth, int newHeight) {
+		BufferedImage newImg = new BufferedImage(newWidth, newHeight, this.getBuffer().getType());
+		Graphics2D graphics2d = newImg.createGraphics();
+		graphics2d.drawImage(img, 0, 0, newWidth, newHeight, null);
+		graphics2d.dispose();
+		return new GrayBuffer(newImg);
+	}
+	
+	/**
+	* 
+	* @return a 2D double array from BufferedImage
+	*/
+	public double[][] convertToDouble2D() {
+		double[][] matrix = new double[width][height];
+		for(int w = 0; w < width; w++)
+			for(int h = 0; h < height; h++)
+				matrix[w][h] = this.get(w, h);
+		return matrix;
 	}
 	
 	/**
@@ -85,4 +114,27 @@ public class GrayBuffer {
 		return img;
 	}
 	
+	/**
+	* 
+	* @return width of this BufferedImage
+	*/
+	public int getWidth() {
+		return width;
+	}
+
+	/**
+	* 
+	* @return height of this BufferedImage
+	*/
+	public int getHeight() {
+		return height;
+	}
+	
+	/**
+	* 
+	* @return bacground of this image
+	*/
+	public double getBackground() {
+		return background;
+	}
 }
