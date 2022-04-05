@@ -2,14 +2,12 @@ package image;
 
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
-import java.awt.image.RescaleOp;
 
 /**
 * My grayscale image data structure for image manipulation
 * @author Muti Kara
 */
 public class GrayBuffer {
-	final int CONTRAST = 40;
 	
 	BufferedImage img;
 	int width;
@@ -17,34 +15,15 @@ public class GrayBuffer {
 	
 	String text;
 	double probability;
-	double background = 0;
 	
 	/**
 	* Creates an GrayBuffer object from given BufferedImage
 	* @param img
 	*/
 	public GrayBuffer(BufferedImage img) {
-		RescaleOp adjust = new RescaleOp(1.3f, 15, null);
-		adjust.filter(img, img);
-		
-		this.img = img;
 		this.width = img.getWidth();
 		this.height = img.getHeight();
-		
-		for(int w = 0; w < width; w++){
-			for(int h = 0; h < height; h++){
-				int p = img.getRGB(w, h);
-				p = ((p >> 16 & 0xff) + (p >> 8 & 0xff) + (p & 0xff))/3;
-				p = (p/CONTRAST) * CONTRAST;
-				set(w, h, p);
-			}
-		}
-		for(int w = 0; w < width; w++){
-			for(int h = 0; h < height; h++){
-				background += get(w, h);
-			}
-		}
-		background /= width * height;
+		this.img = img;
 	}
 	
 	/**
@@ -130,11 +109,4 @@ public class GrayBuffer {
 		return height;
 	}
 	
-	/**
-	* 
-	* @return bacground of this image
-	*/
-	public double getBackground() {
-		return background;
-	}
 }
