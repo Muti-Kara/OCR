@@ -14,10 +14,10 @@ public class Main {
 		String dir = "/home/yuio/Project";
 		
 		GrayBuffer buff = ImageReader.read(dir + "/data.jpg");
-		buff = buff.resize(buff.getWidth()/4, buff.getHeight()/4);
+		//buff = buff.resize(buff.getWidth()/4, buff.getHeight()/4);
 		Sauvola.convertRGBtoGrayScale(buff);
 		Sauvola.binarize(buff);
-		buff = buff.resize(buff.getWidth()*2, buff.getHeight()*2);
+		//buff = buff.resize(buff.getWidth()*2, buff.getHeight()*2);
 		ImageWriter.write(buff, dir + "/binary.jpg");
 		
 	}
