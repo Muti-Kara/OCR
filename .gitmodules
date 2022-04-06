@@ -1,0 +1,3 @@
+[submodule "neuralnet"]
+	path = neuralnet
+	url = https://github.com/Muti-Kara/neuralnet
