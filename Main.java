@@ -13,7 +13,7 @@ public class Main {
 	public static void main(String[] args) throws IOException {
 		String dir = "/home/yuio/Project";
 		
-		GrayBuffer buff = ImageReader.read(dir + "/data.jpg");
+		GrayBuffer buff = ImageReader.read(dir + "/data1.jpg");
 		//buff = buff.resize(buff.getWidth()/4, buff.getHeight()/4);
 		Sauvola.convertRGBtoGrayScale(buff);
 		Sauvola.binarize(buff);
