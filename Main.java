@@ -1,18 +1,8 @@
 import java.io.IOException;
 
-import image.GrayBuffer;
-
-import image.io.ImageReader;
-import image.io.ImageWriter;
-
-import image.operation.Sauvola;
-import image.operation.GrayScale;
-
-import image.parser.LineParser;
-import neuralnet.matrix.Matrix;
-import neuralnet.network.NeuralNetwork;
-import neuralnet.network.layer.FullyConnected;
-import neuralnet.network.net.ANN;
+import neuralnet.algebra.NetworkOrganizer;
+import neuralnet.network.ann.ANN;
+import neuralnet.training.ANNTrainer;
 
 /**
 * Main
@@ -20,36 +10,22 @@ import neuralnet.network.net.ANN;
 public class Main {
 	
 	public static void main(String[] args) throws IOException {
-		// String dir = "/home/yuio/Project";
+		NetworkOrganizer.addFullyConnectedLayer(2);
+		NetworkOrganizer.addFullyConnectedLayer(2);
+		NetworkOrganizer.addFullyConnectedLayer(2);
 		
-		// GrayBuffer buff = ImageReader.read(dir + "/data.jpg");
+		NetworkOrganizer.setEpoch(200);
+		NetworkOrganizer.setStochastic(10);
 		
-		// double factor = 0.6;
+		NetworkOrganizer.setLearningRate(0.004);
+		NetworkOrganizer.setRandomization(0.001);
+		NetworkOrganizer.setMomentumFactor(0.002);
 		
-		// buff = buff.resize(factor);
-		// ImageWriter.write(buff, dir + "/grayscale.jpg");
-		// System.out.println("Resizing is done");
-		
-		// GrayScale.convertRGBtoGrayScale(buff);
-		// ImageWriter.write(buff, dir + "/grayscale.jpg");
-		// System.out.println("Grayscaling is done");
-		
-		// Sauvola.binarize(buff);
-		// ImageWriter.write(buff, dir + "/binary.jpg");
-		// System.out.println("Binarization is done");
-		
-		// LineParser parser = new LineParser(buff);
-		// parser.parse();
-		// ImageWriter.write(buff, dir + "/lined_binary.jpg");
-		// System.out.println("Line parsing is done");
-		
-		NeuralNetwork net = new NeuralNetwork();
 		ANN ann = new ANN();
-		ann.addLayer(2, FullyConnected.IDENTITY_ACTIVATION, FullyConnected.PRETRAINED);
-		ann.addLayer(3, FullyConnected.RELU_ACTIVATION, FullyConnected.PRETRAINED);
-		net.addNet(ann);
-		net.forwardPropagation(new Matrix(2, 1));
-		System.out.println(net);
+		
+		ANNTrainer trainer = new ANNTrainer(ann);
+		
+		
 	}
 	
 }
