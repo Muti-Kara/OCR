@@ -1,0 +1,9 @@
+[submodule "nnet"]
+	path = nnet
+	url = https://github.com/Muti-Kara/nnet
+[submodule "nlp"]
+	path = nlp
+	url = https://github.com/Muti-Kara/nlp
+[submodule "dip"]
+	path = dip
+	url = https://github.com/Muti-Kara/dip
