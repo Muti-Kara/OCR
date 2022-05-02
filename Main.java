@@ -1,11 +1,11 @@
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Scanner;
 
 import dip.Segmentation;
 import dip.data.MyImage;
 import dip.io.MyImageIO;
+
 import nnet.network.NeuralNetwork;
 import nnet.network.net.ANN;
 import nnet.network.net.CNN;
@@ -37,7 +37,7 @@ public class Main {
 		
 		String text = "";
 		for (int i = 0; i < segmentation.size(); i++) {
-			ArrayList<MyImage> line = segmentation.line(i);
+			MyImage[] line = segmentation.line(i);
 			for (MyImage character : line) {
 				text += net.classify(character.convertToDouble2D());
 			}
