@@ -3,12 +3,12 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-import image.Segmentation;
-import image.data.MyImage;
-import image.io.MyImageIO;
-import neuralnet.network.NeuralNetwork;
-import neuralnet.network.net.ANN;
-import neuralnet.network.net.CNN;
+import dip.Segmentation;
+import dip.data.MyImage;
+import dip.io.MyImageIO;
+import nnet.network.NeuralNetwork;
+import nnet.network.net.ANN;
+import nnet.network.net.CNN;
 
 public class Main {
 	

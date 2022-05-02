@@ -1,9 +1,0 @@
-[submodule "neuralnet"]
-	path = neuralnet
-	url = https://github.com/Muti-Kara/neuralnet
-[submodule "nlp"]
-	path = nlp
-	url = https://github.com/Muti-Kara/nlp
-[submodule "image"]
-	path = image
-	url = https://github.com/Muti-Kara/image
