@@ -26,6 +26,7 @@ public class OCR {
 
 		ANN ann = new ANN();
 		ann.addLayer(ANN.INPUT, 484);
+		ann.addLayer(ANN.RELU, 128);
 		ann.addLayer(ANN.SOFTMAX, 26);
 		
 		ann.read(new Scanner(new File("ANN.txt")));
